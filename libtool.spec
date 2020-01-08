@@ -3,18 +3,16 @@
 
 Name:    libtool
 Version: 2.4.6
-Release: 29
+Release: 30
 License: GPLv2+ and LGPLv2+ and GFDL
 Summary: The GNU Portable Library Tool
 URL:     http://www.gnu.org/software/libtool/
 Source0:  http://ftp.gnu.org/gnu/libtool/libtool-%{version}.tar.xz
 
-Patch0:   libtool-2.4.5-rpath.patch
-Patch1:   libtool-2.4.6-am-1.16-test.patch
-Patch2:   libtool-2.4.6-specs.patch
-Patch3:   libtool-2.4.6-hardening.patch
-Patch4:   libtool-2.4.6-fatal-handler.patch
-Patch5:   libtool-nodocs.patch
+Patch0:     libtool-2.4.5-rpath.patch
+Patch1:     libtool-2.4.6-am-1.16-test.patch
+Patch6000:  libtool-exit-verbosely-for-fatal-configure-problems.patch
+Patch6001:  libtool-fix-GCC-linking-with-specs.patch
 
 Requires: gcc(major),autoconf, automake, sed, tar, findutils
 
@@ -96,6 +94,9 @@ rm -f %{buildroot}%{_libdir}/libltdl.{a,la}
 
 
 %changelog
+* Wed Jan 8 2020 openEuler Buildteam <buildteam@openeuler.org> - 2.4.6-30
+- format patches
+
 * Thu Sep 5 2019 openEuler Buildteam <buildteam@openeuler.org> - 2.4.6-29
 - Package init
 
