@@ -10,14 +10,12 @@ shell code.
 func_fatal_error call.
 
 Copyright-paperwork-exempt: Yes
-
-Upstream: 350082b6aa89f9ef603fcebbb4cf33f15a743f2f
 ---
  build-aux/ltmain.in | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/build-aux/ltmain.in b/build-aux/ltmain.in
-index 0ad021db..c3058f21 100644
+index 0ad021d..c3058f2 100644
 --- a/build-aux/ltmain.in
 +++ b/build-aux/ltmain.in
 @@ -212,7 +212,7 @@ fi
@@ -30,5 +28,4 @@ index 0ad021db..c3058f21 100644
        "Fatal configuration error."
  }
 -- 
-2.17.1
-
+1.8.3.1

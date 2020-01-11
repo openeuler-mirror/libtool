@@ -1,7 +1,7 @@
 From 702a97fbb09bd7088a50f2b239016d1e32843c24 Mon Sep 17 00:00:00 2001
 From: Pavel Raiskup <praiskup@redhat.com>
 Date: Fri, 18 Sep 2015 10:36:43 +0200
-Subject: libtool: fix GCC linking with -specs=*
+Subject: [PATCH] libtool: fix GCC linking with -specs=*
 
 References:
 https://bugzilla.redhat.com/show_bug.cgi?id=985592
@@ -33,5 +33,4 @@ index d5cf07a..0c40da0 100644
  	arg=$func_quote_for_eval_result
          func_append compile_command " $arg"
 -- 
-cgit v1.0-41-gc330
-
+1.8.3.1
