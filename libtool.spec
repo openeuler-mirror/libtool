@@ -3,7 +3,7 @@
 
 Name:    libtool
 Version: 2.4.6
-Release: 30
+Release: 31
 License: GPLv2+ and LGPLv2+ and GFDL
 Summary: The GNU Portable Library Tool
 URL:     http://www.gnu.org/software/libtool/
@@ -19,22 +19,26 @@ Requires: gcc(major),autoconf, automake, sed, tar, findutils
 BuildRequires: texinfo,autoconf, automake,help2man
 BuildRequires: libstdc++-devel, gcc-gfortran,gcc, gcc-c++
 
-
-Provides:  %{name}-ltdl
-Obsoletes: %{name}-ltdl
-
 %description
 GNU libtool is a generic library support script.
 Libtool hides the complexity of using shared libraries behind a consistent, portable interface.
+
+%package ltdl
+Summary:  Runtime libraries for GNU Libtool Dynamic Module Loader
+Provides: %{name}-libs = %{version}-%{release}
+
+%description ltdl
+The libtool-ltdl package contains the GNU Libtool Dynamic Module Loader, a
+library that provides a consistent, portable interface which simplifies the
+process of using dynamic modules.
 
 %package   devel
 Summary:   Tools needed for development using the GNU Libtool Dynamic Module Loader
 License:   LGPLv2+
 Requires:  automake
-Requires:  %{name} = %{version}-%{release}
+Requires:  %{name}-ltdl = %{version}-%{release}
 Provides:  %{name}-ltdl-devel
 Obsoletes: %{name}-ltdl-devel
-
 
 %description devel
 Static libraries and header files for development with ltdl.
@@ -68,14 +72,16 @@ rm -f %{buildroot}%{_libdir}/libltdl.{a,la}
 
 %files
 %license COPYING
-%license libltdl/COPYING.LIB
 %doc AUTHORS NEWS THANKS TODO ChangeLog*
 %{_bindir}/libtool
 %{_bindir}/libtoolize
-%{_libdir}/libltdl.so.*
 %{_datadir}/aclocal/*.m4
 %dir %{_datadir}/libtool
 %{_datadir}/libtool/build-aux
+
+%files ltdl
+%license libltdl/COPYING.LIB
+%{_libdir}/libltdl.so.*
 
 %files devel
 %license libltdl/COPYING.LIB
@@ -94,6 +100,9 @@ rm -f %{buildroot}%{_libdir}/libltdl.{a,la}
 
 
 %changelog
+* Mon Jan 20 2020 openEuler Buildteam <buildteam@openeuler.org> - 2.4.6-31
+- fixbug in wrong dependency of kernel-devel
+
 * Wed Jan 8 2020 openEuler Buildteam <buildteam@openeuler.org> - 2.4.6-30
 - format patches
 
