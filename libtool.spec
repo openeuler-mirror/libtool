@@ -3,7 +3,7 @@
 
 Name:    libtool
 Version: 2.4.6
-Release: 31
+Release: 32
 License: GPLv2+ and LGPLv2+ and GFDL
 Summary: The GNU Portable Library Tool
 URL:     http://www.gnu.org/software/libtool/
@@ -16,8 +16,8 @@ Patch6001:  libtool-fix-GCC-linking-with-specs.patch
 
 Requires: gcc(major),autoconf, automake, sed, tar, findutils
 
-BuildRequires: texinfo,autoconf, automake,help2man
-BuildRequires: libstdc++-devel, gcc-gfortran,gcc, gcc-c++
+BuildRequires: texinfo autoconf automake help2man gdb
+BuildRequires: libstdc++-devel gcc-gfortran gcc gcc-c++
 
 %description
 GNU libtool is a generic library support script.
@@ -100,6 +100,9 @@ rm -f %{buildroot}%{_libdir}/libltdl.{a,la}
 
 
 %changelog
+* Thu Mar 19 2020 openEuler Buildteam <buildteam@openeuler.org> - 2.4.6-32
+- add necessary BuildRequires
+
 * Mon Jan 20 2020 openEuler Buildteam <buildteam@openeuler.org> - 2.4.6-31
 - fixbug in wrong dependency of kernel-devel
 
