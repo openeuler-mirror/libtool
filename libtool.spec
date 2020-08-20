@@ -55,8 +55,12 @@ export CC=gcc
 export CXX=g++
 export F77=gfortran
 export CFLAGS="$RPM_OPT_FLAGS -fPIC"
-export FFLAGS=$(echo "$RPM_OPT_FLAGS -I/usr/lib64/gfortran/modules -fPIE"| sed 's/-fstack-protector-strong/ /g')
-export FCFLAGS=$(echo "$RPM_OPT_FLAGS -I/usr/lib64/gfortran/modules -fPIE"| sed 's/-fstack-protector-strong/ /g')
+export FFLAGS=$(echo "$RPM_OPT_FLAGS -I/usr/lib64/gfortran/modules"| sed 's/-fstack-protector-strong/ /g')
+export FCFLAGS=$(echo "$RPM_OPT_FLAGS -I/usr/lib64/gfortran/modules"| sed 's/-fstack-protector-strong/ /g')
+%ifarch x86_64
+export FFLAGS="$RPM_OPT_FLAGS -fPIE"
+export FCFLAGS="$RPM_OPT_FLAGS -fPIE"
+%endif
 
 %configure
 
