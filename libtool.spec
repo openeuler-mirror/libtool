@@ -3,7 +3,7 @@
 
 Name:    libtool
 Version: 2.4.6
-Release: 32
+Release: 33
 License: GPLv2+ and LGPLv2+ and GFDL
 Summary: The GNU Portable Library Tool
 URL:     http://www.gnu.org/software/libtool/
@@ -55,8 +55,8 @@ export CC=gcc
 export CXX=g++
 export F77=gfortran
 export CFLAGS="$RPM_OPT_FLAGS -fPIC"
-export FFLAGS=$(echo "$RPM_OPT_FLAGS -I/usr/lib64/gfortran/modules"| sed 's/-fstack-protector-strong/ /g')
-export FCFLAGS=$(echo "$RPM_OPT_FLAGS -I/usr/lib64/gfortran/modules"| sed 's/-fstack-protector-strong/ /g')
+export FFLAGS=$(echo "$RPM_OPT_FLAGS -I/usr/lib64/gfortran/modules -fPIE"| sed 's/-fstack-protector-strong/ /g')
+export FCFLAGS=$(echo "$RPM_OPT_FLAGS -I/usr/lib64/gfortran/modules -fPIE"| sed 's/-fstack-protector-strong/ /g')
 
 %configure
 
@@ -100,6 +100,9 @@ rm -f %{buildroot}%{_libdir}/libltdl.{a,la}
 
 
 %changelog
+* Thu Aug 20 2020 tianwei <tianwei12@huawei.com> - 2.4.6-33
+- fixbug testcase fail for gfortan
+
 * Thu Mar 19 2020 openEuler Buildteam <buildteam@openeuler.org> - 2.4.6-32
 - add necessary BuildRequires
 
