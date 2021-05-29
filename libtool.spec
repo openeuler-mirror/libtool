@@ -3,7 +3,7 @@
 
 Name:    libtool
 Version: 2.4.6
-Release: 32
+Release: 33
 License: GPLv2+ and LGPLv2+ and GFDL
 Summary: The GNU Portable Library Tool
 URL:     http://www.gnu.org/software/libtool/
@@ -57,6 +57,10 @@ export F77=gfortran
 export CFLAGS="$RPM_OPT_FLAGS -fPIC"
 export FFLAGS=$(echo "$RPM_OPT_FLAGS -I/usr/lib64/gfortran/modules"| sed 's/-fstack-protector-strong/ /g')
 export FCFLAGS=$(echo "$RPM_OPT_FLAGS -I/usr/lib64/gfortran/modules"| sed 's/-fstack-protector-strong/ /g')
+%ifarch x86_64
+export FFLAGS="$RPM_OPT_FLAGS -fPIE"
+export FCFLAGS="$RPM_OPT_FLAGS -fPIE"
+%endif
 
 %configure
 
@@ -100,6 +104,9 @@ rm -f %{buildroot}%{_libdir}/libltdl.{a,la}
 
 
 %changelog
+* Sat May 29 2021 shixuantong <shixuantong@huawei.com> - 2.4.6-33
+- fix F77 language support, Fortran language support, Libtool stress test fail on standard_x86_64 
+
 * Thu Mar 19 2020 openEuler Buildteam <buildteam@openeuler.org> - 2.4.6-32
 - add necessary BuildRequires
 
