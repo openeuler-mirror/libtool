@@ -3,7 +3,7 @@
 
 Name:    libtool
 Version: 2.4.6
-Release: 33
+Release: 34
 License: GPLv2+ and LGPLv2+ and GFDL
 Summary: The GNU Portable Library Tool
 URL:     http://www.gnu.org/software/libtool/
@@ -16,7 +16,7 @@ Patch6001:  libtool-fix-GCC-linking-with-specs.patch
 
 Requires: gcc(major),autoconf, automake, sed, tar, findutils
 
-BuildRequires: texinfo autoconf automake help2man gdb
+BuildRequires: texinfo autoconf automake help2man 
 BuildRequires: libstdc++-devel gcc-gfortran gcc gcc-c++
 
 %description
@@ -104,6 +104,9 @@ rm -f %{buildroot}%{_libdir}/libltdl.{a,la}
 
 
 %changelog
+* Fri Jul 23 2021 yuanxin <yuanxin24@huawei.com> - 2.4.6-34
+- remove BuildRequires gdb
+
 * Thu Aug 20 2020 tianwei <tianwei12@huawei.com> - 2.4.6-33
 - fixbug testcase fail for gfortan
 
