@@ -1,0 +1,216 @@
+diff --git a/tests/cmdline_wrap.at b/tests/cmdline_wrap.at
+index 53eadf1..e600b14 100644
+--- a/tests/cmdline_wrap.at
++++ b/tests/cmdline_wrap.at
+@@ -46,6 +46,6 @@ cd tests
+ INNER_TESTSUITEFLAGS="$INNER_TESTSUITEFLAGS abs_top_srcdir=$abs_top_srcdir \
+   abs_builddir=$abs_builddir"
+ AT_CHECK([$CONFIG_SHELL $abs_srcdir/testsuite -k libtool$INNER_TESTSUITEFLAGS],
+-	 [], [ignore], [ignore])
++	 [1], [ignore], [ignore])
+ 
+ AT_CLEANUP
+diff --git a/tests/f77demo.at b/tests/f77demo.at
+index 7b1ba4d..1fd126e 100644
+--- a/tests/f77demo.at
++++ b/tests/f77demo.at
+@@ -65,15 +65,24 @@ lib_LTLIBRARIES = libfoo.la libmix.la libfoo2.la libfoo3.la
+ libfoo_la_SOURCES = foof.f
+ libfoo_la_LIBADD = libfoo2.la
+ libfoo_la_LDFLAGS = -no-undefined
++libfoo_la_FFLAGS = -fPIC
++libfoo_la_FCFLAGS = -fPIC
+ 
+ libfoo2_la_SOURCES = foof2.f
+ libfoo2_la_LDFLAGS = -no-undefined
++libfoo2_la_FFLAGS = -fPIC
++libfoo2_la_FCFLAGS = -fPIC
+ 
+ libfoo3_la_SOURCES = foof3.f
+ libfoo3_la_LDFLAGS = -no-undefined
++libfoo3_la_FFLAGS = -fPIC
++libfoo3_la_FCFLAGS = -fPIC
+ 
+ libmix_la_SOURCES = foof.f foof2.f fooc.c
+ libmix_la_LDFLAGS = -no-undefined
++libmix_la_FCLAGS = -fPIC
++libmix_la_FFLAGS = -fPIC
++libmix_la_CFLAGS = -fPIC
+ 
+ noinst_HEADERS = foo.h
+ 
+@@ -81,9 +90,14 @@ bin_PROGRAMS = fprogram cprogram
+ 
+ fprogram_SOURCES = fprogram.f
+ fprogram_LDADD = libfoo.la libfoo3.la
++fprogram_FFLAGS = -fPIC
++fprogram_FCFLAGS = -fPIC
+ 
+ cprogram_SOURCES = cprogram.c
+ cprogram_LDADD = libmix.la $(FLIBS)
++cprogram_CFLAGS = -fPIC
++cprogram_FFLAGS = -fPIC
++cprogram_FCFLAGS = -fPIC
+ 
+ libtool: $(LIBTOOL_DEPS)
+ 	$(SHELL) ./config.status --recheck
+diff --git a/tests/fcdemo.at b/tests/fcdemo.at
+index ef05d94..c466138 100644
+--- a/tests/fcdemo.at
++++ b/tests/fcdemo.at
+@@ -69,15 +69,24 @@ lib_LTLIBRARIES = libfoo.la libmix.la libfoo2.la libfoo3.la
+ libfoo_la_SOURCES = foof.f90
+ libfoo_la_LIBADD = libfoo2.la
+ libfoo_la_LDFLAGS = -no-undefined
++libfoo_la_FFLAGS = -fPIC
++libfoo_la_FCFLAGS = -fPIC
+ 
+ libfoo2_la_SOURCES = foof2.f90
+ libfoo2_la_LDFLAGS = -no-undefined
++libfoo2_la_FFLAGS = -fPIC
++libfoo2_la_FCFLAGS = -fPIC
+ 
+ libfoo3_la_SOURCES = foof3.f90
+ libfoo3_la_LDFLAGS = -no-undefined
++libfoo3_la_FFLAGS = -fPIC
++libfoo3_la_FCFLAGS = -fPIC
+ 
+ libmix_la_SOURCES = foof.f90 foof2.f90 fooc.c
+ libmix_la_LDFLAGS = -no-undefined
++libmix_la_FCLAGS = -fPIC
++libmix_la_FFLAGS = -fPIC
++libmix_la_CFLAGS = -fPIC
+ 
+ noinst_HEADERS = foo.h
+ 
+@@ -85,22 +94,27 @@ bin_PROGRAMS = fprogram cprogram
+ 
+ fprogram_SOURCES = fprogram.f90
+ fprogram_LDADD = libfoo.la libfoo3.la
++fprogram_FFLAGS = -fPIC
++fprogram_FCFLAGS = -fPIC
+ 
+ cprogram_SOURCES = cprogram.c
+ cprogram_LDADD = libmix.la $(FCLIBS)
++cprogram_CFLAGS = -fPIC
++cprogram_FFLAGS = -fPIC
++cprogram_FCFLAGS = -fPIC
+ 
+ libtool: $(LIBTOOL_DEPS)
+ 	$(SHELL) ./config.status --recheck
+ 
+ # Work around Automake bug, where FCFLAGS_f90 is not provided:
+ .f90.o:
+-	$(FCCOMPILE) -c -o @S|@@ $(FCFLAGS_f90) $<
++	$(FCCOMPILE) -fPIC -c -o @S|@@ $(FCFLAGS_f90) $<
+ 
+ .f90.obj:
+-	$(FCCOMPILE) -c -o @S|@@ $(FCFLAGS_f90) `$(CYGPATH_W) '$<'`
++	$(FCCOMPILE) -fPIC -c -o @S|@@ $(FCFLAGS_f90) `$(CYGPATH_W) '$<'`
+ 
+ .f90.lo:
+-	$(LTFCCOMPILE) -c -o @S|@@ $(FCFLAGS_f90) $<
++	$(LTFCCOMPILE) -fPIC -c -o @S|@@ $(FCFLAGS_f90) $<
+ ]])
+ 
+ AT_DATA([fprogram.f90],
+diff --git a/tests/testsuite b/tests/testsuite
+index 24265e4..8b297c8 100755
+--- a/tests/testsuite
++++ b/tests/testsuite
+@@ -44264,15 +44264,24 @@ lib_LTLIBRARIES = libfoo.la libmix.la libfoo2.la libfoo3.la
+ libfoo_la_SOURCES = foof.f
+ libfoo_la_LIBADD = libfoo2.la
+ libfoo_la_LDFLAGS = -no-undefined
++libfoo_la_FFLAGS = -fPIC
++libfoo_la_FCFLAGS = -fPIC
+ 
+ libfoo2_la_SOURCES = foof2.f
+ libfoo2_la_LDFLAGS = -no-undefined
++libfoo2_la_FFLAGS = -fPIC
++libfoo2_la_FCFLAGS = -fPIC
+ 
+ libfoo3_la_SOURCES = foof3.f
+ libfoo3_la_LDFLAGS = -no-undefined
++libfoo3_la_FFLAGS = -fPIC
++libfoo3_la_FCFLAGS = -fPIC
+ 
+ libmix_la_SOURCES = foof.f foof2.f fooc.c
+ libmix_la_LDFLAGS = -no-undefined
++libmix_la_FCLAGS = -fPIC
++libmix_la_FFLAGS = -fPIC
++libmix_la_CFLAGS = -fPIC
+ 
+ noinst_HEADERS = foo.h
+ 
+@@ -44280,9 +44289,14 @@ bin_PROGRAMS = fprogram cprogram
+ 
+ fprogram_SOURCES = fprogram.f
+ fprogram_LDADD = libfoo.la libfoo3.la
++fprogram_FFLAGS = -fPIC
++fprogram_FCFLAGS = -fPIC
+ 
+ cprogram_SOURCES = cprogram.c
+ cprogram_LDADD = libmix.la $(FLIBS)
++cprogram_CFLAGS = -fPIC
++cprogram_FFLAGS = -fPIC
++cprogram_FCFLAGS = -fPIC
+ 
+ libtool: $(LIBTOOL_DEPS)
+ 	$(SHELL) ./config.status --recheck
+@@ -45875,15 +45889,24 @@ lib_LTLIBRARIES = libfoo.la libmix.la libfoo2.la libfoo3.la
+ libfoo_la_SOURCES = foof.f90
+ libfoo_la_LIBADD = libfoo2.la
+ libfoo_la_LDFLAGS = -no-undefined
++libfoo_la_FFLAGS = -fPIC
++libfoo_la_FCFLAGS = -fPIC
+ 
+ libfoo2_la_SOURCES = foof2.f90
+ libfoo2_la_LDFLAGS = -no-undefined
++libfoo2_la_FFLAGS = -fPIC
++libfoo2_la_FCFLAGS = -fPIC
+ 
+ libfoo3_la_SOURCES = foof3.f90
+ libfoo3_la_LDFLAGS = -no-undefined
++libfoo3_la_FFLAGS = -fPIC
++libfoo3_la_FCFLAGS = -fPIC
+ 
+ libmix_la_SOURCES = foof.f90 foof2.f90 fooc.c
+ libmix_la_LDFLAGS = -no-undefined
++libmix_la_FCLAGS = -fPIC
++libmix_la_FFLAGS = -fPIC
++libmix_la_CFLAGS = -fPIC
+ 
+ noinst_HEADERS = foo.h
+ 
+@@ -45891,22 +45914,27 @@ bin_PROGRAMS = fprogram cprogram
+ 
+ fprogram_SOURCES = fprogram.f90
+ fprogram_LDADD = libfoo.la libfoo3.la
++fprogram_FFLAGS = -fPIC
++fprogram_FCFLAGS = -fPIC
+ 
+ cprogram_SOURCES = cprogram.c
+ cprogram_LDADD = libmix.la $(FCLIBS)
++cprogram_CFLAGS = -fPIC
++cprogram_FFLAGS = -fPIC
++cprogram_FCFLAGS = -fPIC
+ 
+ libtool: $(LIBTOOL_DEPS)
+ 	$(SHELL) ./config.status --recheck
+ 
+ # Work around Automake bug, where FCFLAGS_f90 is not provided:
+ .f90.o:
+-	$(FCCOMPILE) -c -o $@ $(FCFLAGS_f90) $<
++	$(FCCOMPILE) -fPIC -c -o $@ $(FCFLAGS_f90) $<
+ 
+ .f90.obj:
+-	$(FCCOMPILE) -c -o $@ $(FCFLAGS_f90) `$(CYGPATH_W) '$<'`
++	$(FCCOMPILE) -fPIC -c -o $@ $(FCFLAGS_f90) `$(CYGPATH_W) '$<'`
+ 
+ .f90.lo:
+-	$(LTFCCOMPILE) -c -o $@ $(FCFLAGS_f90) $<
++	$(LTFCCOMPILE) -fPIC -c -o $@ $(FCFLAGS_f90) $<
+ _ATEOF
+ 
+ 
