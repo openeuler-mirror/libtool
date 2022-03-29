@@ -2,17 +2,16 @@
 %global  gcc_major  7.3.0
 
 Name:    libtool
-Version: 2.4.6
-Release: 34
+Version: 2.4.7
+Release: 1
 License: GPLv2+ and LGPLv2+ and GFDL
 Summary: The GNU Portable Library Tool
 URL:     http://www.gnu.org/software/libtool/
 Source0:  http://ftp.gnu.org/gnu/libtool/libtool-%{version}.tar.xz
 
-Patch0:     libtool-2.4.5-rpath.patch
-Patch1:     libtool-2.4.6-am-1.16-test.patch
-Patch6000:  libtool-exit-verbosely-for-fatal-configure-problems.patch
-Patch6001:  libtool-fix-GCC-linking-with-specs.patch
+%ifarch riscv64
+Patch0:     fix-testsuite.patch
+%endif
 
 Requires: gcc(major),autoconf, automake, sed, tar, findutils
 
@@ -104,6 +103,10 @@ rm -f %{buildroot}%{_libdir}/libltdl.{a,la}
 
 
 %changelog
+* Tue Mar 29 2022 misaka00251 <misaka00251@misakanet.cn> - 2.4.7-1
+- Upgrade package version
+- Fixed test suite for riscv64.
+
 * Fri Jul 23 2021 yuanxin <yuanxin24@huawei.com> - 2.4.6-34
 - remove BuildRequires gdb
 
